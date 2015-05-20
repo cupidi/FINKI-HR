@@ -39,6 +39,7 @@ public class LinkController {
 	public ModelAndView employeesPage() {
 		ModelAndView res=new ModelAndView("employees");
 		List<User> employees = userService.getAllUsers();
+		res.addObject("numEmployees",employees.size());
 		res.addObject("employees", employees);
 		return res;
 	}

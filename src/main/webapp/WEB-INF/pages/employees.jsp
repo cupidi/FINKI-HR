@@ -12,6 +12,7 @@
 </head>
 <body>
 		<h1>List of Employees</h1>
+		<p>Employees (${numEmployees})</p>
 		<table border="1px" cellpadding="0" cellspacing="0" >
 			<thead>
 				<tr>
