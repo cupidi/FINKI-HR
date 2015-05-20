@@ -1,4 +1,5 @@
 package mk.ukim.finki.mp.crud.model;
+/*
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -49,4 +50,4 @@ public class JobPositions {
 	
 	
 
-}
+}*/

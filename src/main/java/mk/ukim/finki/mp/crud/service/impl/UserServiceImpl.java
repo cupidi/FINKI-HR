@@ -17,6 +17,11 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return userDao.getAllUsers();
+	}
 
 	@Override
 	public User getUser(String mail, String password) {

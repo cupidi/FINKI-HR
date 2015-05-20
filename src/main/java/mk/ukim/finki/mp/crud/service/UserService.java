@@ -6,6 +6,7 @@ import mk.ukim.finki.mp.crud.model.User;
 
 public interface UserService {
 
+	public List<User> getAllUsers();
 	
 	public User getUser(String mail, String password);
 	

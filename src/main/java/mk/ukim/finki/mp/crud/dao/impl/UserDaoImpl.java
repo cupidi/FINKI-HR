@@ -28,6 +28,12 @@ public class UserDaoImpl implements UserDao {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	@Override
+	public List<User> getAllUsers() {
+		List<User> users=getCurrentSession().createQuery("from User").list();
+		System.out.println(users);
+		return users;
+	}
 
 	@Override
 	public User getUser(String mail, String password) {
