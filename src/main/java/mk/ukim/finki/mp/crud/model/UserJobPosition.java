@@ -1,5 +1,5 @@
 package mk.ukim.finki.mp.crud.model;
-/*
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,11 +18,7 @@ public class UserJobPosition {
 
 	int job_id;
 	
-	@ManyToOne
-	private User user;
-	
-	@ManyToOne
-	private JobPositions job;
+
 	
 	
 	public UserJobPosition() {
@@ -61,4 +57,4 @@ public class UserJobPosition {
 	}
 	
 	
-}*/
+}
