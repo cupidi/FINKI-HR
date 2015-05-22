@@ -4,67 +4,51 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "announcements")
 public class Announcements {
 
-	@Id
-	@GeneratedValue
-	int announcement_id;
-	
-	int user_id;
-	
-	Date datum;
-	
-	String announcement;
-	
-	public Announcements() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Announcements(int announcement_id, int user_id, Date datum,
-			String announcement) {
-		super();
-		this.announcement_id = announcement_id;
-		this.user_id = user_id;
-		this.datum = datum;
-		this.announcement = announcement;
-	}
-
+	 @Id
+	 @GeneratedValue(strategy=GenerationType.IDENTITY)
+	 private int announcement_id;
+	 @ManyToOne
+	 private User user;
+	 private Date datum;
+	 public Announcements()
+	 {
+		 
+	 }
+	 public Announcements(User user,Date datum)
+	 {
+		 this.user=user;
+		 this.datum=datum;
+	 }
 	public int getAnnouncement_id() {
 		return announcement_id;
 	}
-
 	public void setAnnouncement_id(int announcement_id) {
 		this.announcement_id = announcement_id;
 	}
-
-	public int getUser_id() {
-		return user_id;
+	public User getUser() {
+		return user;
 	}
-
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
 	public Date getDatum() {
 		return datum;
 	}
-
 	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
-
-	public String getAnnouncement() {
-		return announcement;
-	}
-
-	public void setAnnouncement(String announcement) {
-		this.announcement = announcement;
-	}
+	 
+	 
+	 
 	
 	
 	
