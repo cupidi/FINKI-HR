@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,18 +18,19 @@ public class SalaryInfo {
 	   private int salary_id;
 	   private Date datee;
 	   private double salary;
-	   @ManyToOne
+	    @ManyToOne
+	    @JoinColumn(name="user_id")
 	   private User user;
 	   
 	   public SalaryInfo()
 	   {
 		   
 	   }
-	   public SalaryInfo(Date datee,double salary,User user)
+	   public SalaryInfo(Date datee,double salary)
 	   {
 		   this.datee=datee;
 		   this.salary=salary;
-		   this.user=user;
+		    
 	   }
 	public int getSalary_id() {
 		return salary_id;

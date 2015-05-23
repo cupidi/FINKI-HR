@@ -2,10 +2,12 @@ package mk.ukim.finki.mp.crud.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,16 +19,26 @@ public class Announcements {
 	 @GeneratedValue(strategy=GenerationType.IDENTITY)
 	 private int announcement_id;
 	 @ManyToOne
+	 @JoinColumn(name="user_id")
 	 private User user;
 	 private Date datum;
+	 @Column(name="announcement")
+	 private String message;
 	 public Announcements()
 	 {
 		 
 	 }
-	 public Announcements(User user,Date datum)
+	 public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public Announcements(Date datum,String message)
 	 {
-		 this.user=user;
+		  
 		 this.datum=datum;
+		 this.message=message;
 	 }
 	public int getAnnouncement_id() {
 		return announcement_id;

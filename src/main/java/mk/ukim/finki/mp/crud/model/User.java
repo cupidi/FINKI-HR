@@ -1,5 +1,6 @@
 package mk.ukim.finki.mp.crud.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -8,10 +9,13 @@ import java.util.HashSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,7 +36,7 @@ public class User {
       private String phone;
       private String picture;
       private Date birth_date;
-      private long ssn;
+      private  long  ssn;
       @Column(name="type")
       private String Type;
       private Date  hire_date;
@@ -45,13 +49,49 @@ public class User {
       @JoinColumn(name="manager_id")
       private User manager;
       
-      @OneToMany(mappedBy="manager")
+      
+      @ManyToMany(cascade = {CascadeType.ALL})
+      @JoinTable(name="user_job_position", 
+                  joinColumns={@JoinColumn(name="user_id")}, 
+                  inverseJoinColumns={@JoinColumn(name="job_id")})
+      private Set<JobPositions> jobs = new HashSet<JobPositions>();
+       
+    		   
+      
+
+	public Set<JobPositions> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(Set<JobPositions> jobs) {
+		this.jobs = jobs;
+	}
+	@OneToMany(mappedBy="manager")
       private Set<User> subordinates=new HashSet<User>();
       public User()
       {
     	  
       }
-      public User(String name,String surname,String address,String mail,String phone,String picture,Date birth_date,long ssn,String Type,Date hire_date,String Gender,String password,String CV,User manager)
+      @OneToMany(mappedBy="user")
+      private Set<SalaryInfo>salaries=new HashSet<SalaryInfo>();
+      public Set<SalaryInfo> getSalaries() {
+		return salaries;
+	}
+    @OneToMany(mappedBy="user")
+    private Set<Announcements>announcements=new HashSet<Announcements>();
+	public Set<Announcements> getAnnouncements() {
+		return announcements;
+	}
+
+	public void setAnnouncements(Set<Announcements> announcements) {
+		this.announcements = announcements;
+	}
+
+	public void setSalaries(Set<SalaryInfo> salaries) {
+		this.salaries = salaries;
+	}
+
+	public User(String name,String surname,String address,String mail,String phone,String picture,Date birth_date,long ssn,String Type,Date hireDate,String Gender,String password,String CV)
       {
     	  this.name=name;
     	  this.surname=surname;
@@ -62,11 +102,10 @@ public class User {
     	  this.birth_date=birth_date;
     	  this.ssn=ssn;
     	  this.Type=Type;
-    	  this.hire_date=hire_date;
+    	  this.hire_date=hireDate;
     	  this.Gender=Gender;
     	  this.password=password;
     	  this.CV=CV;
-    	  this.manager=manager;
       }
       
       public int getUser_id() {
