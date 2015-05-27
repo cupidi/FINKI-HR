@@ -17,6 +17,16 @@ public class Announcements {
 	
 	int user_id;
 	
+	String announcement_title;
+	
+	public String getAnnouncement_title() {
+		return announcement_title;
+	}
+
+	public void setAnnouncement_title(String announcement_title) {
+		this.announcement_title = announcement_title;
+	}
+
 	Date datum;
 	
 	String announcement;
@@ -25,9 +35,10 @@ public class Announcements {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Announcements(int announcement_id, int user_id, Date datum,
+	public Announcements(int announcement_id, int user_id, Date datum,String announcement_title,
 			String announcement) {
 		super();
+		this.announcement_title=announcement_title;
 		this.announcement_id = announcement_id;
 		this.user_id = user_id;
 		this.datum = datum;

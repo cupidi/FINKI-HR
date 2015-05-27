@@ -1,4 +1,5 @@
 package mk.ukim.finki.mp.crud.model;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,8 +19,7 @@ public class JobPositions {
 	
 	String position_name;
 	
-	@OneToMany(mappedBy = "job")
-	List<UserJobPosition> ujp;
+
 	
 	public JobPositions() {
 		// TODO Auto-generated constructor stub

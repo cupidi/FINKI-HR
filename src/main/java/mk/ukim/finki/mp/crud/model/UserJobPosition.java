@@ -1,4 +1,7 @@
 package mk.ukim.finki.mp.crud.model;
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,22 +20,36 @@ public class UserJobPosition {
 
 	int job_id;
 	
-	@ManyToOne
-	private User user;
+	Date date;
 	
-	@ManyToOne
-	private JobPositions job;
-	
+	int salary_id;
 	
 	public UserJobPosition() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserJobPosition(int id, int user_id, int job_id) {
+	public UserJobPosition(int id, int user_id, int job_id,Date date,int salary_id) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
 		this.job_id = job_id;
+		this.date=date;
+	}
+
+	public int getSalary_id() {
+		return salary_id;
+	}
+
+	public void setSalary_id(int salary_id) {
+		this.salary_id = salary_id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public int getId() {

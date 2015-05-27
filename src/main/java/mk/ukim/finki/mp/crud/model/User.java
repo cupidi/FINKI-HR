@@ -37,13 +37,12 @@ public class User {
 	int manager_id;
 	String password;
 	String cv;
-	String jobTitle;
-	
+	//String jobTitle;
 	
 	public User(int user_id, String name, String surname, String address,
 			String mail, String phone, String picture, Date birth_date,
 			long ssn, String type, Date hire_date, String gender,
-			int manager_id, String password, String cv, String jobTitle) {
+			int manager_id, String password, String cv) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
@@ -60,7 +59,7 @@ public class User {
 		this.manager_id = manager_id;
 		this.password = password;
 		this.cv = cv;
-		this.jobTitle=jobTitle;
+		//this.jobTitle=jobTitle;
 	}
 	public int getUser_id() {
 		return user_id;
@@ -153,6 +152,7 @@ public class User {
 		this.cv = cv;
 	}
 	
+	/*
 	public String getJobTitle() {
 		return jobTitle;
 	}
@@ -161,6 +161,6 @@ public class User {
 		this.jobTitle = jobTitle;
 	}
 	
-	
+	*/
 	
 }

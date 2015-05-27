@@ -15,9 +15,9 @@ public class SalaryInfo {
 	@GeneratedValue
 	int salary_id;
 	
-	int user_id;
+	//int user_id;
 	
-	Date datee;
+	//Date datee;
 	
 	double salary;
 
@@ -25,11 +25,11 @@ public class SalaryInfo {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public SalaryInfo(int salary_id, int user_id, Date datee, double salary) {
+	public SalaryInfo(int salary_id, double salary) {
 		super();
 		this.salary_id = salary_id;
-		this.user_id = user_id;
-		this.datee = datee;
+		//this.user_id = user_id;
+		//this.datee = datee;
 		this.salary = salary;
 	}
 
@@ -41,6 +41,7 @@ public class SalaryInfo {
 		this.salary_id = salary_id;
 	}
 
+	/*
 	public int getUser_id() {
 		return user_id;
 	}
@@ -56,7 +57,7 @@ public class SalaryInfo {
 	public void setDatee(Date datee) {
 		this.datee = datee;
 	}
-
+*/
 	public double getSalary() {
 		return salary;
 	}
