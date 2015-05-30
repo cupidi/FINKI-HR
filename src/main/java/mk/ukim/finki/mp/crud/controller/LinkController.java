@@ -27,13 +27,43 @@ public class LinkController {
 	private UserService userService;
 	
 	@RequestMapping(value="/")
-	public ModelAndView indexPage() {
+	public ModelAndView indexPage(HttpSession session) {
 		ModelAndView res=new ModelAndView("login");
+		if (session.getAttribute("user") == null)
+			return res;
+		return new ModelAndView("redirect:details");
+	}
+	@RequestMapping(value="/news")
+	public ModelAndView news() {
+		ModelAndView res=new ModelAndView("news");
+		//announcements
+		List<Announcements> announcements=userService.getAllAnnouncements();
+		System.out.println(announcements);
+		res.addObject("announcements",announcements);
+		List<String> userNames=new ArrayList<>();
+		for(Announcements a : announcements){
+			userNames.add(userService.getUserName(a));
+		}
+		res.addObject("userNames",userNames);
 		return res;
 	}
-	@RequestMapping(value="/addAnnouncement")
-	public ModelAndView addAnnouncement() {
-		ModelAndView res=new ModelAndView("addAnnouncement");
+	@RequestMapping(value="/list")
+	public ModelAndView list() {
+		ModelAndView res=new ModelAndView("list");
+		//employees view
+		List<List<String>> jobs=new ArrayList<List<String>>();
+		List<User> employees = userService.getAllUsers();
+		for(User user : employees){
+			List<UserJobPosition> userJob=userService.getUserJobPositions(user);
+			List<String> jobTitle=new ArrayList<>();
+			for (UserJobPosition userJobPosition : userJob) {
+				jobTitle.add(0,userService.getPositionName(userJobPosition.getJob_id()));
+			}
+			jobs.add(jobTitle);
+		}
+		res.addObject("job",jobs);
+		res.addObject("numEmployees",employees.size());
+		res.addObject("employees", employees);
 		return res;
 	}
 	
@@ -47,7 +77,7 @@ public class LinkController {
 		a.setDatum(date);
 		a.setUser_id(authenticatedUser.getUser_id());
 		userService.addAnnouncement(a);
-		return "redirect:employees";
+		return "redirect:news";
 	}
 	
 	@RequestMapping(value="/edit", method = RequestMethod.POST)
@@ -72,7 +102,7 @@ public class LinkController {
 		userToEdit.setSsn(Long.parseLong(ssn));
 		userToEdit.setPhone(phone);
 		userService.editPersonalInfo(userToEdit);
-		return "redirect:employees";
+		return "redirect:details";
 	}
 	
 	
@@ -84,13 +114,13 @@ public class LinkController {
 	}
 	else{
 		session.setAttribute("user",u);
-		return "redirect:employees";
+		return "redirect:details";
 	}
 	}
 	
-	@RequestMapping(value="/employees")
+	@RequestMapping(value="/details")
 	public ModelAndView employeesPage(HttpSession session) {
-		ModelAndView res=new ModelAndView("employees");
+		ModelAndView res=new ModelAndView("details");
 		
 		//personal info
 		User authenticatedUser=(User) session.getAttribute("user");
@@ -106,32 +136,6 @@ public class LinkController {
 		res.addObject("userJobPositions",userJobPos);
 		res.addObject("jobTitles",jobTitles);
 		res.addObject("salaries",salaries);
-		
-		//employees view
-		List<List<String>> jobs=new ArrayList<List<String>>();
-		List<User> employees = userService.getAllUsers();
-		for(User user : employees){
-		List<UserJobPosition> userJob=userService.getUserJobPositions(user);
-		List<String> jobTitle=new ArrayList<>();
-		for (UserJobPosition userJobPosition : userJob) {
-		jobTitle.add(0,userService.getPositionName(userJobPosition.getJob_id()));
-		}
-		jobs.add(jobTitle);
-		}
-		res.addObject("job",jobs);
-		res.addObject("numEmployees",employees.size());
-		res.addObject("employees", employees);
-		
-		//announcements
-		List<Announcements> announcements=userService.getAllAnnouncements();
-		System.out.println(announcements);
-		res.addObject("announcements",announcements);
-		List<String> userNames=new ArrayList<>();
-		for(Announcements a : announcements){
-		userNames.add(userService.getUserName(a));
-		
-		}
-		res.addObject("userNames",userNames);
 		
 		return res;
 	}

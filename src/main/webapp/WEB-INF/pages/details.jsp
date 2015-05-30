@@ -34,8 +34,8 @@
    <div>
       <ul class="nav navbar-nav">
          <li><a href="./news.html">News Feed</a></li>
-         <li class="active"><a href="./details.html">My Info</a></li>
-         <li><a href="./employees.html">Employees</a></li>
+         <li class="active"><a href="./details">My Info</a></li>
+         <li><a href="./list">Employees</a></li>
          <li><a href="./applications.html">Applications</a></li>
          <li><a href="./reports.html">Reports</a></li>
       </ul>
