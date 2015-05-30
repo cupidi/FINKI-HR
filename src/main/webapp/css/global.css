@@ -1,0 +1,30 @@
+body {
+	padding-top: 125px;
+}
+
+@media (min-width: 767px) {
+	.navbar {
+	    padding: 0 100px;
+	}
+}
+
+th {
+	text-align: center;
+}
+
+.bar-nav {
+	top: 51px;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.bubble {
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
