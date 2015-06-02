@@ -34,9 +34,11 @@ public class LinkController {
 		return new ModelAndView("redirect:details");
 	}
 	@RequestMapping(value="/news")
-	public ModelAndView news() {
+	public ModelAndView news(HttpSession session) {
 		ModelAndView res=new ModelAndView("news");
 		//announcements
+		User authenticatedUser=(User) session.getAttribute("user");
+		res.addObject("autUser",authenticatedUser); 
 		List<Announcements> announcements=userService.getAllAnnouncements();
 		System.out.println(announcements);
 		res.addObject("announcements",announcements);

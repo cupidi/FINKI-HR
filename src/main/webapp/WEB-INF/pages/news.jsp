@@ -54,13 +54,15 @@ textarea {
 	</nav>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-12"
-				style="text-align: right; margin-bottom: 20px;">
-				<button type="button" class="btn btn-default" data-toggle="modal"
-					data-target="#modal-add">+ Add an Announcement</button>
+		<c:if test="${autUser.type == 'admin'}">
+			<div class="row">
+				<div class="col-sm-12"
+					style="text-align: right; margin-bottom: 20px;">
+					<button type="button" class="btn btn-default" data-toggle="modal"
+						data-target="#modal-add">+ Add an Announcement</button>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<div class="row">
 			<div class="col-sm-12">
 				<c:forEach var="announcement" items="${announcements}"
