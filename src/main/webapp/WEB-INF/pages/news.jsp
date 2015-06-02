@@ -54,7 +54,7 @@ textarea {
 	</nav>
 
 	<div class="container">
-		<c:if test="${autUser.type == 'admin'}">
+		<c:if test="${manager == true}">
 			<div class="row">
 				<div class="col-sm-12"
 					style="text-align: right; margin-bottom: 20px;">
@@ -69,7 +69,7 @@ textarea {
 					varStatus="status">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">${announcement.announcement_title}</h3>
+							<h3 class="panel-title">${announcement.announcement_title} (${userNames[announcement.announcement_id]})<SPAN style="float:right">${announcement.datum}</SPAN></h3>
 						</div>
 						<div class="panel-body">${announcement.announcement}</div>
 					</div>
@@ -85,8 +85,9 @@ textarea {
 				<form action="addedAnnouncement" method="post">
 					<div class="modal-body">
 						<div class="input-group">
-							<span class="input-group-addon">Title</span> 
-							<input type="text" name="title" class="form-control" placeholder="Announcement Title">
+							<span class="input-group-addon">Title</span> <input type="text"
+								name="title" class="form-control"
+								placeholder="Announcement Title">
 						</div>
 						<div style="margin-top: 10px;">
 							<textarea class="form-control" name="announcement" rows="15"

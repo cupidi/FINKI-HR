@@ -27,4 +27,6 @@ public interface UserService {
 	public void editPersonalInfo(User user);
 	
 	public boolean isManager(User user);
+	
+	public User getUser(int id);
 }

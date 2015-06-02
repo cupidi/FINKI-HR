@@ -73,17 +73,17 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Basic Info</div>
 				<ul class="list-group">
-					<li class="list-group-item">Name: ${autUser.name}</li>
-					<li class="list-group-item">Surname: ${autUser.surname}</li>
-					<li class="list-group-item">Born: ${autUser.birth_date}</li>
+					<li class="list-group-item">Name: <span class="conv" en="true" at="name">${autUser.name}</span></li>
+					<li class="list-group-item">Surname: <span class="conv" en="true" at="surname">${autUser.surname}</span></li>
+					<li class="list-group-item">Born: <span class="conv" en="true" at="birthdate">${autUser.birth_date}</span></li>
 				</ul>
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">Contact Info</div>
 				<ul class="list-group">
-					<li class="list-group-item">Phone: ${autUser.phone}</li>
-					<li class="list-group-item">E-mail: ${autUser.mail}</li>
-					<li class="list-group-item">Address: ${autUser.address}</li>
+					<li class="list-group-item">Phone: <span class="conv" en="true" at="phone">${autUser.phone}</span></li>
+					<li class="list-group-item">E-mail: <span class="conv" en="true" at="mail">${autUser.mail}</span></li>
+					<li class="list-group-item">Address: <span class="conv" en="true" at="address">${autUser.address}</span></li>
 				</ul>
 			</div>
 		</div>
@@ -134,6 +134,35 @@ $('#tab-job-info').click(function() {
 	$('#tab-personal-info').parent().removeClass('active');
 });
 </script>
-
+<c:if test="${manager == true}">
+	<script type="text/javascript">
+		$('.conv').click(function() {
+		
+			if ($(this).attr("en") === "false")
+				return;
+			
+			var val = $(this).html();
+			$(this).html('<input type="text" value="'+val+'" />');
+			var $newE = $(this).find('input');
+			$newE.focus();
+			$(this).attr("en", "false");
+			
+			$newE.on('blur', function() {
+				at = $(this).parent().attr("at");
+				val = $(this).val();
+				obj = {};
+				obj['id'] = ${autUser.user_id};
+				obj[at] = val;
+				$.post('./edit', obj, 
+					    function(){
+						location.reload();
+					});
+				$(this).parent().attr("en", "true");
+				$(this).parent().html($(this).val());
+				
+			});
+		});
+	</script>
+</c:if>
 </body>
 </html>

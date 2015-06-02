@@ -79,5 +79,16 @@ public class UserServiceImpl implements UserService {
 		return user.getType().toLowerCase().equals("manager");
 	}
 
+	@Override
+	public User getUser(int id) {
+		List<User> employees = getAllUsers();
+		for (User temp : employees) {
+			if (temp.getUser_id() == id) {
+				return temp;
+			}
+		}
+		return null;
+	}
+
 	
 }
