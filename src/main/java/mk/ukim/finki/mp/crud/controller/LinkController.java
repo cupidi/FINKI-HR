@@ -226,14 +226,30 @@ public class LinkController {
 	}
 
 	@RequestMapping(value = "/details")
-	public ModelAndView employeesPage(HttpSession session) {
+	public ModelAndView employeesPage(@RequestParam(value = "id", required = false) String id, HttpSession session) {
 		ModelAndView res = new ModelAndView("details");
 
-		// personal info
-		User authenticatedUser = (User) session.getAttribute("user");
-		res.addObject("autUser", authenticatedUser);
+		User user = (User) session.getAttribute("user");
+		res.addObject("logedUser", user);
+		
+		if (id != null) {
+			int u_id = 0;
+			try {
+				u_id = Integer.parseInt(id);
+			} catch (NumberFormatException e) {
+				return new ModelAndView("redirect:details");
+			}
+			List<User> employees = userService.getAllUsers();
+			for (User temp : employees) {
+				if (temp.getUser_id() == u_id) {
+					user = temp;
+				}
+			}
+		}
+		
+		res.addObject("autUser", user);
 		List<UserJobPosition> userJobPos = userService
-				.getUserJobPositions(authenticatedUser);
+				.getUserJobPositions(user);
 		List<String> jobTitles = new ArrayList<>();
 		List<Double> salaries = new ArrayList<>();
 

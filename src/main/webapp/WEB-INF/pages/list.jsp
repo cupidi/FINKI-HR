@@ -74,7 +74,7 @@ tr {
 				<th>Date</th>
 			</tr>
 			<c:forEach var="employee" items="${employees}" varStatus="status">
-				<tr class="clickable">
+				<tr class="clickable" em_id="${employee.user_id}">
 					<td><span>
 							<img width="100" height="100" src="<c:url value="/images/${employee.picture}"/>" />
 						</span>
@@ -92,7 +92,7 @@ tr {
 
 <script type="text/javascript">
 $('.clickable').click(function() {
-	window.location.href = "./details.html";
+	window.location.href = "./details?id="+$(this).attr("em_id");
 });
 </script>
 </body>

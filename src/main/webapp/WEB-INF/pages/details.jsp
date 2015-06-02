@@ -34,8 +34,8 @@
    <div>
       <ul class="nav navbar-nav">
          <li><a href="./news.html">News Feed</a></li>
-         <li class="active"><a href="./details">My Info</a></li>
-         <li><a href="./list">Employees</a></li>
+         <li <c:if test="${autUser.user_id == logedUser.user_id}"> class="active" </c:if>><a href="./details">My Info</a></li>
+         <li <c:if test="${autUser.user_id != logedUser.user_id}"> class="active" </c:if>><a href="./list">Employees</a></li>
          <li><a href="./applications.html">Applications</a></li>
          <li><a href="./reports.html">Reports</a></li>
       </ul>

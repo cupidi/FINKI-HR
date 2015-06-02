@@ -73,5 +73,11 @@ public class UserServiceImpl implements UserService {
 		userDao.editPersonalInfo(user);
 	}
 
+	@Override
+	public boolean isManager(User user) {
+		// TODO Auto-generated method stub
+		return user.getType().toLowerCase().equals("manager");
+	}
+
 	
 }
