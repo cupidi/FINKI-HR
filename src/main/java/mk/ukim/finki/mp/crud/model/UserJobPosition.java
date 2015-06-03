@@ -5,8 +5,9 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "user_job_position")
@@ -20,6 +21,7 @@ public class UserJobPosition {
 
 	int job_id;
 	
+	@Type(type="date")
 	Date date;
 	
 	int salary_id;
@@ -34,6 +36,7 @@ public class UserJobPosition {
 		this.user_id = user_id;
 		this.job_id = job_id;
 		this.date=date;
+		this.salary_id = salary_id;
 	}
 
 	public int getSalary_id() {

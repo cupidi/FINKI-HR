@@ -1,18 +1,12 @@
 package mk.ukim.finki.mp.crud;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import mk.ukim.finki.mp.crud.model.User;
 
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
-import com.sun.org.apache.xerces.internal.impl.validation.ValidationState;
 
  
 public class UserValidator  implements Validator   {

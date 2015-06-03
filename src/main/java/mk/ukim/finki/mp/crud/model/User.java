@@ -1,14 +1,13 @@
 package mk.ukim.finki.mp.crud.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -29,9 +28,11 @@ public class User {
 	String mail;
 	String phone;
 	String picture;
+	@Type(type="date")
 	Date birth_date;
 	long ssn;
 	String type;
+	@Type(type="date")
 	Date hire_date;
 	String gender;
 	int manager_id;

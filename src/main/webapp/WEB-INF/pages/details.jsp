@@ -98,9 +98,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Job History</div>
 				<table class="table">
-					<col width="80%">
-		  			<col width="10%">
-		  			<col width="10%">
+					<col width="60%">
+		  			<col width="20%">
+		  			<col width="20%">
 					<tr>
 						<th>Position</th>
 						<th>Salary</th>
@@ -108,9 +108,9 @@
 					</tr>
 					<c:forEach var="userJobPosition" items="${userJobPositions}" varStatus="status">
 						<tr>
-							<td>${jobTitles[status.index]}</td>
-							<td>${salaries[status.index]}</td>
-							<td>${userJobPosition.date}</td>
+							<td style="text-align:center">${jobTitles[status.index]}</td>
+							<td style="text-align:center">${salaries[status.index]}</td>
+							<td style="text-align:center">${userJobPosition.date}</td>
 						</tr>
 					</c:forEach>
 				</table>

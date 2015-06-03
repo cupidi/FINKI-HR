@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import mk.ukim.finki.mp.crud.HibernateUtil;
 import mk.ukim.finki.mp.crud.UserValidator;
 import mk.ukim.finki.mp.crud.model.User;
 import mk.ukim.finki.mp.crud.service.UserService;
@@ -49,64 +48,64 @@ public class LinkController {
 
 	}
 
-	@RequestMapping(value = "/registerDo", method = RequestMethod.POST)
-	public ModelAndView registration(@ModelAttribute User user,
-			BindingResult bindingResult) {
-		userValidator.validate(user, bindingResult);
-		if (bindingResult.hasErrors()) {
-			ModelAndView model = new ModelAndView("register");
-			model.addObject("user", user);
-			return model;
-		} else {
-
-			SessionFactory factory = HibernateUtil.getSessionFactory();
-			Session session = factory.openSession();
-			session.beginTransaction();
-			int br = 0;
-
-			Query query = session
-					.createQuery("select ssn from User where mail=:mail");
-			Query query1 = session
-					.createQuery("select ssn from User where password=:password");
-
-			query1.setParameter("password", user.getPassword());
-			query.setParameter("mail", user.getMail());
-
-			List result = query.list();
-			List result1 = query1.list();
-
-			if (result.size() != 0) {
-				bindingResult.rejectValue("mail", "mail.bad1");
-				br++;
-			}
-			if (result1.size() != 0) {
-				bindingResult.rejectValue("password", "password.bad1");
-				br++;
-			}
-
-			ModelAndView model;
-			if (br != 0) {
-				model = new ModelAndView("register");
-				model.addObject("user", user);
-				session.close();
-			} else {
-
-				user.setType("Applicant");
-				// Query
-				// query3=session.createQuery("select user_id from User where type=:type");
-				// query3.setParameter("type","Manager");
-				// List list3=query3.list();
-				// int manager_id=(int) list3.get(0);
-				// user.setManager_id(manager_id);
-				session.save(user);
-
-				session.getTransaction().commit();
-				model = new ModelAndView("Uspesno");
-
-			}
-			return model;
-
-		}
-	}
+//	@RequestMapping(value = "/registerDo", method = RequestMethod.POST)
+//	public ModelAndView registration(@ModelAttribute User user,
+//			BindingResult bindingResult) {
+//		userValidator.validate(user, bindingResult);
+//		if (bindingResult.hasErrors()) {
+//			ModelAndView model = new ModelAndView("register");
+//			model.addObject("user", user);
+//			return model;
+//		} else {
+//
+//			SessionFactory factory = HibernateUtil.getSessionFactory();
+//			Session session = factory.openSession();
+//			session.beginTransaction();
+//			int br = 0;
+//
+//			Query query = session
+//					.createQuery("select ssn from User where mail=:mail");
+//			Query query1 = session
+//					.createQuery("select ssn from User where password=:password");
+//
+//			query1.setParameter("password", user.getPassword());
+//			query.setParameter("mail", user.getMail());
+//
+//			List result = query.list();
+//			List result1 = query1.list();
+//
+//			if (result.size() != 0) {
+//				bindingResult.rejectValue("mail", "mail.bad1");
+//				br++;
+//			}
+//			if (result1.size() != 0) {
+//				bindingResult.rejectValue("password", "password.bad1");
+//				br++;
+//			}
+//
+//			ModelAndView model;
+//			if (br != 0) {
+//				model = new ModelAndView("register");
+//				model.addObject("user", user);
+//				session.close();
+//			} else {
+//
+//				user.setType("Applicant");
+//				// Query
+//				// query3=session.createQuery("select user_id from User where type=:type");
+//				// query3.setParameter("type","Manager");
+//				// List list3=query3.list();
+//				// int manager_id=(int) list3.get(0);
+//				// user.setManager_id(manager_id);
+//				session.save(user);
+//
+//				session.getTransaction().commit();
+//				model = new ModelAndView("Uspesno");
+//
+//			}
+//			return model;
+//
+//		}
+//	}
 
 }

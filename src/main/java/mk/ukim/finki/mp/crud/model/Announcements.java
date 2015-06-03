@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "announcements")
 public class Announcements {
@@ -27,6 +29,7 @@ public class Announcements {
 		this.announcement_title = announcement_title;
 	}
 
+	@Type(type="date")
 	Date datum;
 	
 	String announcement;
