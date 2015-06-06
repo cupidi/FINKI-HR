@@ -1,6 +1,7 @@
 package mk.ukim.finki.mp.crud.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import mk.ukim.finki.mp.crud.model.Announcements;
 import mk.ukim.finki.mp.crud.model.JobPositions;
@@ -28,5 +29,7 @@ public interface UserDao {
 	
 	public void addUser(User user);
 	
+	public Map<String,Integer> getSalaryByEmployee();
 	
+	public String getTotalSalaryExpensesByMonth();
 }
