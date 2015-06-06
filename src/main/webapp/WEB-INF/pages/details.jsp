@@ -33,10 +33,10 @@
 <nav class="navbar navbar-default navbar-fixed-top bar-nav" role="navigation">
    <div>
       <ul class="nav navbar-nav">
-         <li><a href="./news.html">News Feed</a></li>
+         <li><a href="./news">News Feed</a></li>
          <li <c:if test="${autUser.user_id == logedUser.user_id}"> class="active" </c:if>><a href="./details">My Info</a></li>
          <li <c:if test="${autUser.user_id != logedUser.user_id}"> class="active" </c:if>><a href="./list">Employees</a></li>
-         <li><a href="./applications.html">Applications</a></li>
+         <li><a href="./applications">Applications</a></li>
          <li><a href="./reports.html">Reports</a></li>
       </ul>
    </div>
@@ -92,7 +92,7 @@
 				<div class="panel-heading">Basic Info</div>
 				<ul class="list-group">
 					<li class="list-group-item">Hire Date: ${autUser.hire_date}</li>
-					<li class="list-group-item">Position: ${jobTitles[0]}</li>
+					<li class="list-group-item">Current Position: ${userJobPositions[0].position_name}</li>
 				</ul>
 			</div>
 			<div class="panel panel-default">
@@ -108,16 +108,41 @@
 					</tr>
 					<c:forEach var="userJobPosition" items="${userJobPositions}" varStatus="status">
 						<tr>
-							<td style="text-align:center">${jobTitles[status.index]}</td>
-							<td style="text-align:center">${salaries[status.index]}</td>
-							<td style="text-align:center">${userJobPosition.date}</td>
+							<td style="text-align:center">${userJobPosition.position_name}</td>
+							<td style="text-align:center">${userJobPosition.salary}</td>
+							<td style="text-align:center">${userJobPosition.starting_date}</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<div class="update-button-div"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-update"><span class="glyphicon glyphicon-briefcase"></span> Update Job</button></div>
 			</div>
 		</div>
 	</div>
 </div>
+</div>
+
+<div class="modal fade" id="modal-update" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form action="addJob" method="post">
+      <div class="modal-body">
+      	<input type="hidden" name="id" value="${autUser.user_id}">
+      	<div class="input-group">
+		  <span class="input-group-addon">Position</span>
+		  <input name="position" type="text" class="form-control" placeholder="Position Title">
+		</div>
+		<div class="input-group" style="margin-top:10px">
+		  <span class="input-group-addon">Salary</span>
+		  <input name="salary" type="text" class="form-control" placeholder="Salary in dollars">
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" value="Add" class="btn btn-default">Update</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">

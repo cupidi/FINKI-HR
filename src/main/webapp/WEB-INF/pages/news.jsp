@@ -44,10 +44,10 @@ textarea {
 		role="navigation">
 		<div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="./news.html">News Feed</a></li>
+				<li class="active"><a href="./news">News Feed</a></li>
 				<li><a href="./details">My Info</a></li>
 				<li><a href="./list">Employees</a></li>
-				<li><a href="./applications.html">Applications</a></li>
+				<li><a href="./applications">Applications</a></li>
 				<li><a href="./reports.html">Reports</a></li>
 			</ul>
 		</div>

@@ -5,9 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import mk.ukim.finki.mp.crud.UserValidator;
+import mk.ukim.finki.mp.crud.model.JobPositions;
 import mk.ukim.finki.mp.crud.model.User;
-import mk.ukim.finki.mp.crud.model.UserJobPosition;
 import mk.ukim.finki.mp.crud.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class ListController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	UserValidator userValidator;
 
 
 	@RequestMapping(value = "/list")
@@ -34,17 +31,15 @@ public class ListController {
 		
 		ModelAndView res = new ModelAndView("list");
 		
-		List<List<String>> jobs = new ArrayList<List<String>>();
-		List<User> employees = userService.getAllUsers();
+		List<String> jobs = new ArrayList<String>();
+		List<User> employees = userService.getAllEmployees();
 		for (User user : employees) {
-			List<UserJobPosition> userJob = userService
+			List<JobPositions> userJob = userService
 					.getUserJobPositions(user);
-			List<String> jobTitle = new ArrayList<>();
-			for (UserJobPosition userJobPosition : userJob) {
-				jobTitle.add(0, userService.getPositionName(userJobPosition
-						.getJob_id()));
-			}
-			jobs.add(jobTitle);
+			if (userJob.size() > 0)
+				jobs.add(userJob.get(userJob.size() - 1).getPosition_name());
+			else
+				jobs.add("");
 		}
 		res.addObject("job", jobs);
 		res.addObject("numEmployees", employees.size());

@@ -45,8 +45,8 @@ tr {
      <ul class="nav navbar-nav">
          <li><a href="./news">News Feed</a></li>
          <li><a href="./details">My Info</a></li>
-         <li class="active"><a href="./list">Employees</a></li>
-         <li><a href="./applications">Applications</a></li>
+         <li><a href="./list">Employees</a></li>
+         <li class="active"><a href="./applications">Applications</a></li>
          <li><a href="./reports.html">Reports</a></li>
       </ul>
    </div>
@@ -55,31 +55,28 @@ tr {
 <div class="container">
 <div class="row">
 	<div class="col-sm-12">
-		<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Employees <span class="label label-default">${numEmployees}</span></h3>
+		<h3><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Applications <span class="label label-default">${aplicatorsCount}</span></h3>
 	</div>
 </div>
 <div class="row">
 	<div class="col-sm-12">
 		<table class="table table-striped table-hover" style="margin-top: 10px;">
-			<col width="10%">
-  			<col width="30%">
-  			<col width="30%">
-  			<col width="30%">
+			<col width="20%">
+  			<col width="40%">
+  			<col width="40%">
 			<tr>
 				<th>Photo</th>
 				<th>Name</th>
-				<th>Job title</th>
 				<th>Date</th>
 			</tr>
-			<c:forEach var="employee" items="${employees}" varStatus="status">
-				<tr class="clickable" em_id="${employee.user_id}">
+			<c:forEach var="applicant" items="${aplicators}" varStatus="status">
+				<tr class="clickable" em_id="${applicant.user_id}">
 					<td><span>
-							<img width="100" height="100" src="<c:url value="/images/${employee.picture}"/>" />
+							<img width="100" height="100" src="<c:url value="/images/${applicant.picture}"/>" />
 						</span>
 					</td>
-					<td>${employee.name} ${employee.surname}</td>
-					<td>${job[status.index]}</td>
-					<td>${employee.hire_date}</td>
+					<td>${applicant.name} ${applicant.surname}</td>
+					<td>${applicant.application_date}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -89,7 +86,7 @@ tr {
 
 <script type="text/javascript">
 $('.clickable').click(function() {
-	window.location.href = "./details?id="+$(this).attr("em_id");
+	window.location.href = "./application?id="+$(this).attr("em_id");
 });
 </script>
 </body>

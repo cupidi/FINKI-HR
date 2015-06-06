@@ -3,15 +3,13 @@ package mk.ukim.finki.mp.crud.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import mk.ukim.finki.mp.crud.UserValidator;
+import mk.ukim.finki.mp.crud.model.JobPositions;
 import mk.ukim.finki.mp.crud.model.User;
-import mk.ukim.finki.mp.crud.model.UserJobPosition;
 import mk.ukim.finki.mp.crud.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +26,6 @@ public class InfoController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	UserValidator userValidator;
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public @ResponseBody String editPersonalInfo(
@@ -94,6 +90,29 @@ public class InfoController {
 		
 		return userToEdit.getName();
 	}
+	
+	@RequestMapping(value = "/addJob", method = RequestMethod.POST)
+	public String editPersonalInfo(
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "position", required = true) String position,
+			@RequestParam(value = "salary", required = true) String salary, HttpSession session) {
+		
+		User login = (User) session.getAttribute("user");
+		if (login == null || !userService.isManager(login)) {
+			return "redirect:/";
+		}
+		
+		JobPositions job = new JobPositions();
+		job.setPosition_name(position);
+		job.setSalary(Double.parseDouble(salary));
+		job.setUser_id(Integer.parseInt(id));
+		job.setStarting_date(new Date());
+		userService.addJob(job);
+		
+		session.setAttribute("user", userService.getUser(((User) session.getAttribute("user")).getUser_id()));
+		
+		return "redirect:details?id=" + id;
+	}
 
 	@RequestMapping(value = "/details")
 	public ModelAndView employeesPage(@RequestParam(value = "id", required = false) String id, HttpSession session) {
@@ -121,20 +140,20 @@ public class InfoController {
 		}
 		
 		res.addObject("autUser", user);
-		List<UserJobPosition> userJobPos = userService
+		List<JobPositions> userJobPos = userService
 				.getUserJobPositions(user);
-		List<String> jobTitles = new ArrayList<>();
-		List<Double> salaries = new ArrayList<>();
-
-		for (UserJobPosition userJobPosition : userJobPos) {
-			jobTitles.add(0,
-					userService.getPositionName(userJobPosition.getJob_id()));
-			salaries.add(0,
-					userService.getSalary(userJobPosition.getSalary_id()));
-		}
+//		List<String> jobTitles = new ArrayList<>();
+//		List<Double> salaries = new ArrayList<>();
+//
+//		for (UserJobPosition userJobPosition : userJobPos) {
+//			jobTitles.add(0,
+//					userService.getPositionName(userJobPosition.getJob_id()));
+//			salaries.add(0,
+//					userService.getSalary(userJobPosition.getSalary_id()));
+//		}
 		res.addObject("userJobPositions", userJobPos);
-		res.addObject("jobTitles", jobTitles);
-		res.addObject("salaries", salaries);
+//		res.addObject("jobTitles", jobTitles);
+//		res.addObject("salaries", salaries);
 		res.addObject("manager", userService.isManager((User) session.getAttribute("user")));
 
 		return res;

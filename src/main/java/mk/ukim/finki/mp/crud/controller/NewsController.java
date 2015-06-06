@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import mk.ukim.finki.mp.crud.UserValidator;
 import mk.ukim.finki.mp.crud.model.Announcements;
 import mk.ukim.finki.mp.crud.model.User;
 import mk.ukim.finki.mp.crud.service.UserService;
@@ -24,8 +23,6 @@ public class NewsController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	UserValidator userValidator;
 	
 	@RequestMapping(value = "/news")
 	public ModelAndView news(HttpSession session) {

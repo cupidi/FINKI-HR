@@ -1,16 +1,17 @@
 package mk.ukim.finki.mp.crud.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import mk.ukim.finki.mp.crud.dao.UserDao;
+import mk.ukim.finki.mp.crud.model.Announcements;
+import mk.ukim.finki.mp.crud.model.JobPositions;
+import mk.ukim.finki.mp.crud.model.User;
+import mk.ukim.finki.mp.crud.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import mk.ukim.finki.mp.crud.dao.UserDao;
-import mk.ukim.finki.mp.crud.model.Announcements;
-import mk.ukim.finki.mp.crud.model.User;
-import mk.ukim.finki.mp.crud.model.UserJobPosition;
-import mk.ukim.finki.mp.crud.service.UserService;
 
 @Service
 @Transactional
@@ -44,22 +45,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserJobPosition> getUserJobPositions(User u) {
+	public List<JobPositions> getUserJobPositions(User u) {
 		// TODO Auto-generated method stub
 		return userDao.getUserJobPositions(u);
 	}
 
-	@Override
-	public String getPositionName(int job_id) {
-		// TODO Auto-generated method stub
-		return userDao.getPositionName(job_id);
-	}
-
-	@Override
-	public double getSalary(int salary_id) {
-		// TODO Auto-generated method stub
-		return userDao.getSalary(salary_id);
-	}
+//	@Override
+//	public String getPositionName(int job_id) {
+//		// TODO Auto-generated method stub
+//		return userDao.getPositionName(job_id);
+//	}
+//
+//	@Override
+//	public double getSalary(int salary_id) {
+//		// TODO Auto-generated method stub
+//		return userDao.getSalary(salary_id);
+//	}
 
 	@Override
 	public void addAnnouncement(Announcements a) {
@@ -90,5 +91,41 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
-	
+	@Override
+	public List<User> getApplicants() {
+		List<User> aplikanti = new ArrayList<User>();
+		for (User usr : getAllUsers()) {
+			if (usr.getType().toLowerCase().equals("applicant")) {
+				aplikanti.add(usr);
+			}
+		}
+		return aplikanti;
+	}
+
+	@Override
+	public List<User> getAllEmployees() {
+		List<User> aplikanti = new ArrayList<User>();
+		for (User usr : getAllUsers()) {
+			if (!usr.getType().toLowerCase().equals("applicant")) {
+				aplikanti.add(usr);
+			}
+		}
+		return aplikanti;
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		userDao.deleteUser(user);
+	}
+
+	@Override
+	public void addJob(JobPositions job) {
+		userDao.addJob(job);
+	}
+
+	@Override
+	public void addUser(User user) {
+		userDao.addUser(user);
+	}
+
 }

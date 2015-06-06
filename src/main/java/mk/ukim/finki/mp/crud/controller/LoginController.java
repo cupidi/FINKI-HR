@@ -2,7 +2,6 @@ package mk.ukim.finki.mp.crud.controller;
 
 import javax.servlet.http.HttpSession;
 
-import mk.ukim.finki.mp.crud.UserValidator;
 import mk.ukim.finki.mp.crud.model.User;
 import mk.ukim.finki.mp.crud.service.UserService;
 
@@ -18,9 +17,6 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	UserValidator userValidator;
 
 
 	@RequestMapping(value = "/")

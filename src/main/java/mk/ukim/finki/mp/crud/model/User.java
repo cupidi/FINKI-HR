@@ -15,10 +15,9 @@ import org.hibernate.annotations.Type;
 public class User {
 
 	public User() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
-
 	@Id
 	@GeneratedValue
 	int user_id;
@@ -33,6 +32,8 @@ public class User {
 	long ssn;
 	String type;
 	@Type(type="date")
+	Date application_date;
+	@Type(type="date")
 	Date hire_date;
 	String gender;
 	int manager_id;
@@ -42,7 +43,7 @@ public class User {
 	
 	public User(int user_id, String name, String surname, String address,
 			String mail, String phone, String picture, Date birth_date,
-			long ssn, String type, Date hire_date, String gender,
+			long ssn, String type, Date application_date, Date hire_date, String gender,
 			int manager_id, String password, String cv) {
 		super();
 		this.user_id = user_id;
@@ -55,12 +56,12 @@ public class User {
 		this.birth_date = birth_date;
 		this.ssn = ssn;
 		this.type = type;
+		this.application_date = application_date;
 		this.hire_date = hire_date;
 		this.gender = gender;
 		this.manager_id = manager_id;
 		this.password = password;
 		this.cv = cv;
-		//this.jobTitle=jobTitle;
 	}
 	public int getUser_id() {
 		return user_id;
@@ -152,16 +153,12 @@ public class User {
 	public void setCv(String cv) {
 		this.cv = cv;
 	}
-	
-	/*
-	public String getJobTitle() {
-		return jobTitle;
+	public Date getApplication_date() {
+		return application_date;
+	}
+	public void setApplication_date(Date application_date) {
+		this.application_date = application_date;
 	}
 	
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
-	}
-	
-	*/
 	
 }
