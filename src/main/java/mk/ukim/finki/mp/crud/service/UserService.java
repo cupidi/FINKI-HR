@@ -1,6 +1,7 @@
 package mk.ukim.finki.mp.crud.service;
 
 import java.util.List;
+import java.util.Map;
 
 import mk.ukim.finki.mp.crud.model.Announcements;
 import mk.ukim.finki.mp.crud.model.JobPositions;
@@ -39,5 +40,9 @@ public interface UserService {
 	
 	public void addAnnouncement(Announcements a);
 	
-	
+	public String getBirthdayData();
+
+	public Map<String,Integer> getSalaryByEmployee();
+
+	public String getTotalSalaryExpensesByMonth();
 }

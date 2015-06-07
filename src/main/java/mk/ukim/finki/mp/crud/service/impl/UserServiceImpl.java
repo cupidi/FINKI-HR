@@ -1,7 +1,10 @@
 package mk.ukim.finki.mp.crud.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import mk.ukim.finki.mp.crud.dao.UserDao;
 import mk.ukim.finki.mp.crud.model.Announcements;
@@ -128,4 +131,28 @@ public class UserServiceImpl implements UserService {
 		userDao.addUser(user);
 	}
 
+	@Override
+	public String getBirthdayData(){
+		List<User> users = getAllUsers();
+		int data[] = new int[12];
+		for(User user: users){
+			Date date = user.getBirth_date();
+			if(date == null) continue;
+			data[date.getMonth()] ++;			
+		}
+		return Arrays.toString(data);
+	}
+
+	@Override
+	public Map<String,Integer> getSalaryByEmployee() {
+		List<User> users = getAllUsers();
+		return userDao.getSalaryByEmployee();
+	}
+	
+
+	@Override
+	public String getTotalSalaryExpensesByMonth(){
+		return userDao.getTotalSalaryExpensesByMonth();
+	}
+	
 }
