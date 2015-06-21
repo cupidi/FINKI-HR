@@ -45,6 +45,8 @@ public class ListController {
 		res.addObject("numEmployees", employees.size());
 		res.addObject("employees", employees);
 		
+		res.addObject("manager", userService.isManager((User) session.getAttribute("user")));
+		
 		return res;
 	}
 

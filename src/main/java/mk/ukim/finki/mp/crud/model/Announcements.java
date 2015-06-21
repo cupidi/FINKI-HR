@@ -1,13 +1,12 @@
 package mk.ukim.finki.mp.crud.model;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "announcements")
@@ -29,8 +28,8 @@ public class Announcements {
 		this.announcement_title = announcement_title;
 	}
 
-	@Type(type="date")
-	Date datum;
+	
+	Timestamp datum;
 	
 	String announcement;
 	
@@ -38,7 +37,7 @@ public class Announcements {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Announcements(int announcement_id, int user_id, Date datum,String announcement_title,
+	public Announcements(int announcement_id, int user_id, Timestamp datum,String announcement_title,
 			String announcement) {
 		super();
 		this.announcement_title=announcement_title;
@@ -64,11 +63,11 @@ public class Announcements {
 		this.user_id = user_id;
 	}
 
-	public Date getDatum() {
+	public Timestamp getDatum() {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(Timestamp datum) {
 		this.datum = datum;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import mk.ukim.finki.mp.crud.model.User;
 import mk.ukim.finki.mp.crud.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ReportsController {
 	@RequestMapping(value = "/reports")
 	public ModelAndView register(HttpSession session) {
 		//session.setAttribute("birthdayData", userService.getBirthdayData());
+		
+		if ((User) session.getAttribute("user") == null) {
+			return new ModelAndView("redirect:/");
+		}
+		
 		ModelAndView mv = new ModelAndView("reports");
 		mv.addObject("birthdayData", userService.getBirthdayData());
 		mv.addObject("salaryExpenses",userService.getTotalSalaryExpensesByMonth());
@@ -27,6 +33,8 @@ public class ReportsController {
 		
 		mv.addObject("employees",map.keySet());
 		mv.addObject("salaries", map.values());
+		mv.addObject("manager", userService.isManager((User) session.getAttribute("user")));
+		
 		return mv;
 	}	
 }

@@ -80,7 +80,7 @@ body {
 				</div>
 				<div class="input-group" style="margin-top:10px;">
 				  <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-				  <input name="password" type="text" class="form-control" placeholder="Password">
+				  <input name="password" type="password" class="form-control" placeholder="Password">
 				</div>
 				<div class="input-group" style="margin-top:10px;">
 				  <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>

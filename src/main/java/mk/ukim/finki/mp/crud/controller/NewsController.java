@@ -1,6 +1,6 @@
 package mk.ukim.finki.mp.crud.controller;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class NewsController {
 		Announcements a = new Announcements();
 		a.setAnnouncement(announcement);
 		a.setAnnouncement_title(title);
-		Date date = new Date();
+		Timestamp date = new Timestamp(System.currentTimeMillis());
 		a.setDatum(date);
 		a.setUser_id(authenticatedUser.getUser_id());
 		userService.addAnnouncement(a);

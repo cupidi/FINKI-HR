@@ -26,7 +26,7 @@ public class JobPositions {
 	}
 
 	public JobPositions(int job_id, int user_id, String position_name,
-			double salary, Date starting_date) {
+			int salary, Date starting_date) {
 		super();
 		this.job_id = job_id;
 		this.user_id = user_id;
@@ -63,7 +63,7 @@ public class JobPositions {
 		return salary;
 	}
 
-	public void setSalary(double salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 

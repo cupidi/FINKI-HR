@@ -12,7 +12,6 @@ import java.util.Map;
 import mk.ukim.finki.mp.crud.dao.UserDao;
 import mk.ukim.finki.mp.crud.model.Announcements;
 import mk.ukim.finki.mp.crud.model.JobPositions;
-import mk.ukim.finki.mp.crud.model.SalaryInfo;
 import mk.ukim.finki.mp.crud.model.User;
 
 import org.hibernate.Session;
@@ -104,23 +103,25 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public Map<String, Integer> getSalaryByEmployee() {
 		List<User> users = getCurrentSession().createQuery("from User").list();
-		List<SalaryInfo> sinfo = getCurrentSession().createQuery(
-				"from SalaryInfo").list();
+		List<JobPositions> sinfo = getCurrentSession().createQuery(
+				"from JobPositions").list();
 
 		Map<String, Integer> res = new HashMap<String, Integer>();
 
 		for (User u : users) {
-			Date date = new Date(0);
-			int salary = 0;
-			for (SalaryInfo s : sinfo) {
-				if (u.getUser_id() == s.getUser_id()) {
-					if (date.before(s.getDatee())) {
-						date = s.getDatee();
-						salary = s.getSalary();
+			if (!u.getType().equals("applicant")) {
+				Date date = new Date(0);
+				int salary = 0;
+				for (JobPositions s : sinfo) {
+					if (u.getUser_id() == s.getUser_id()) {
+						if (date.before(s.getStarting_date())) {
+							date = s.getStarting_date();
+							salary = (int) s.getSalary();
+						}
 					}
 				}
+				res.put("\"" + u.getName() + "\"", salary);
 			}
-			res.put("\"" + u.getName() + "\"", salary);
 		}
 
 		return res;
@@ -130,41 +131,43 @@ public class UserDaoImpl implements UserDao {
 	public String getTotalSalaryExpensesByMonth() {
 		List<User> users = getCurrentSession().createQuery("from User").list();
 
-		List<SalaryInfo> sinfo = getCurrentSession().createQuery(
-				"from SalaryInfo").list();
+		List<JobPositions> sinfo = getCurrentSession().createQuery(
+				"from JobPositions").list();
 
 		int res[] = new int[12];
 		int currentmonth = new Date(System.currentTimeMillis()).getMonth();
 		for (User u : users) {
-			Date date = new Date(0);
-			int salary = 0;
-			List<SalaryInfo> user_salary = new ArrayList<SalaryInfo>();
-			for (SalaryInfo s : sinfo) {
-				if (u.getUser_id() == s.getUser_id()) {
-					user_salary.add(s);
+			if (!u.getType().equals("applicant")) {
+				Date date = new Date(0);
+				int salary = 0;
+				List<JobPositions> user_salary = new ArrayList<JobPositions>();
+				for (JobPositions s : sinfo) {
+					if (u.getUser_id() == s.getUser_id()) {
+						user_salary.add(s);
+					}
 				}
-			}
-
-			Collections.sort(user_salary, new Comparator<SalaryInfo>() {
-				@Override
-				public int compare(SalaryInfo f, SalaryInfo s) {
-					if (f.getDatee().before(s.getDatee()))
-						return -1;
-					else
-						return 1;
-				}
-			});
-			
-			int user_salary_by_month[] = new int[12];
-			for(SalaryInfo s :user_salary){
-				int month = s.getDatee().getMonth();
-				for(int i = month; i<currentmonth; i++){
-					user_salary_by_month[i] = s.getSalary();
-				}
+	
+				Collections.sort(user_salary, new Comparator<JobPositions>() {
+					@Override
+					public int compare(JobPositions f, JobPositions s) {
+						if (f.getStarting_date().before(s.getStarting_date()))
+							return -1;
+						else
+							return 1;
+					}
+				});
 				
-			}
-			for(int i = 0; i<12; i++){
-				res[i] += user_salary_by_month[i];
+				int user_salary_by_month[] = new int[12];
+				for(JobPositions s :user_salary){
+					int month = s.getStarting_date().getMonth();
+					for(int i = month; i<=currentmonth; i++){
+						user_salary_by_month[i] = (int) s.getSalary();
+					}
+					
+				}
+				for(int i = 0; i<12; i++){
+					res[i] += user_salary_by_month[i];
+				}
 			}
 			
 		}

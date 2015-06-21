@@ -36,6 +36,8 @@ public class ApplicantController {
 		res.addObject("aplicators", aplicatorsList);
 		res.addObject("aplicatorsCount", aplicatorsList.size());
 		
+		res.addObject("manager", userService.isManager(login));
+		
 		return res;
 	}
 	

@@ -136,16 +136,17 @@ public class UserServiceImpl implements UserService {
 		List<User> users = getAllUsers();
 		int data[] = new int[12];
 		for(User user: users){
-			Date date = user.getBirth_date();
-			if(date == null) continue;
-			data[date.getMonth()] ++;			
+			if (!user.getType().equals("applicant")) {
+				Date date = user.getBirth_date();
+				if(date == null) continue;
+				data[date.getMonth()] ++;	
+			}
 		}
 		return Arrays.toString(data);
 	}
 
 	@Override
 	public Map<String,Integer> getSalaryByEmployee() {
-		List<User> users = getAllUsers();
 		return userDao.getSalaryByEmployee();
 	}
 	

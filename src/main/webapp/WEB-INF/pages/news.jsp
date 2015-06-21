@@ -5,6 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
 <!-- JQuery -->
@@ -47,8 +49,11 @@ textarea {
 				<li class="active"><a href="./news">News Feed</a></li>
 				<li><a href="./details">My Info</a></li>
 				<li><a href="./list">Employees</a></li>
-				<li><a href="./applications">Applications</a></li>
-				<li><a href="./reports.html">Reports</a></li>
+				<c:if test="${manager == true}">
+	       			<li><a href="./applications">Applications</a></li>
+	       			<li><a href="./reports.html">Reports</a></li>
+        		</c:if>
+        		<li><a href="./logout">Logout</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -69,7 +74,9 @@ textarea {
 					varStatus="status">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">${announcement.announcement_title} (${userNames[announcement.announcement_id]})<SPAN style="float:right">${announcement.datum}</SPAN></h3>
+							
+							
+							<h3 class="panel-title">${announcement.announcement_title} (${userNames[announcement.announcement_id]})<SPAN style="float:right"><fmt:formatDate value="${announcement.datum}" pattern="dd/MM/yyyy HH:mm"/></SPAN></h3>
 						</div>
 						<div class="panel-body">${announcement.announcement}</div>
 					</div>

@@ -1,3 +1,10 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+
 <html>
 <head>
 <!-- JQuery -->
@@ -8,20 +15,19 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-<!-- Optional theme -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
-<link rel="stylesheet" href="theme.css">
+	<!-- Optional theme -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> -->
+<link rel="stylesheet" href="./css/theme.css">
 
-<!-- Latest compiled and minified JavaScript -->
+	<!-- Latest compiled and minified JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
-<!-- Include chart.js for the reports visualization -->
+	
+	<!-- Include chart.js for the reports visualization -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
 
-<link rel="stylesheet" href="global.css">
-
+<link rel="stylesheet" href="./css/global.css">
 <style>
 textarea {
 	resize: none;
@@ -42,11 +48,14 @@ textarea {
 		role="navigation">
 		<div>
 			<ul class="nav navbar-nav">
-				<li><a href="./news.html">News Feed</a></li>
-				<li><a href="./details.html">My Info</a></li>
-				<li><a href="./employees.html">Employees</a></li>
-				<li><a href="./applications.html">Applications</a></li>
-				<li class="active"><a href="./reports.html">Reports</a></li>
+				<li><a href="./news">News Feed</a></li>
+				<li><a href="./details">My Info</a></li>
+				<li><a href="./list">Employees</a></li>
+				<c:if test="${manager == true}">
+	       			<li><a href="./applications">Applications</a></li>
+	       			<li class="active"><a href="./reports.html">Reports</a></li>
+        		</c:if>
+        		<li><a href="./logout">Logout</a></li>
 			</ul>
 		</div>
 	</nav>

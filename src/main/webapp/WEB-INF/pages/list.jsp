@@ -46,8 +46,11 @@ tr {
          <li><a href="./news">News Feed</a></li>
          <li><a href="./details">My Info</a></li>
          <li class="active"><a href="./list">Employees</a></li>
-         <li><a href="./applications">Applications</a></li>
-         <li><a href="./reports.html">Reports</a></li>
+         <c:if test="${manager == true}">
+	         <li><a href="./applications">Applications</a></li>
+	         <li><a href="./reports.html">Reports</a></li>
+         </c:if>
+         <li><a href="./logout">Logout</a></li>
       </ul>
    </div>
 </nav>

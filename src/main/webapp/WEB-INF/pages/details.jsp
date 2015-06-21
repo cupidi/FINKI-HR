@@ -36,8 +36,11 @@
          <li><a href="./news">News Feed</a></li>
          <li <c:if test="${autUser.user_id == logedUser.user_id}"> class="active" </c:if>><a href="./details">My Info</a></li>
          <li <c:if test="${autUser.user_id != logedUser.user_id}"> class="active" </c:if>><a href="./list">Employees</a></li>
-         <li><a href="./applications">Applications</a></li>
-         <li><a href="./reports.html">Reports</a></li>
+         <c:if test="${manager == true}">
+	         <li><a href="./applications">Applications</a></li>
+	         <li><a href="./reports.html">Reports</a></li>
+         </c:if>
+         <li><a href="./logout">Logout</a></li>
       </ul>
    </div>
 </nav>
@@ -95,27 +98,31 @@
 					<li class="list-group-item">Current Position: ${userJobPositions[0].position_name}</li>
 				</ul>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Job History</div>
-				<table class="table">
-					<col width="60%">
-		  			<col width="20%">
-		  			<col width="20%">
-					<tr>
-						<th>Position</th>
-						<th>Salary</th>
-						<th>Start</th>
-					</tr>
-					<c:forEach var="userJobPosition" items="${userJobPositions}" varStatus="status">
+			<c:if test="${autUser.user_id == logedUser.user_id || manager == true}">
+				<div class="panel panel-default">
+					<div class="panel-heading">Job History</div>
+					<table class="table">
+						<col width="60%">
+			  			<col width="20%">
+			  			<col width="20%">
 						<tr>
-							<td style="text-align:center">${userJobPosition.position_name}</td>
-							<td style="text-align:center">${userJobPosition.salary}</td>
-							<td style="text-align:center">${userJobPosition.starting_date}</td>
+							<th>Position</th>
+							<th>Salary</th>
+							<th>Start</th>
 						</tr>
-					</c:forEach>
-				</table>
-				<div class="update-button-div"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-update"><span class="glyphicon glyphicon-briefcase"></span> Update Job</button></div>
-			</div>
+						<c:forEach var="userJobPosition" items="${userJobPositions}" varStatus="status">
+							<tr>
+								<td style="text-align:center">${userJobPosition.position_name}</td>
+								<td style="text-align:center">${userJobPosition.salary}</td>
+								<td style="text-align:center">${userJobPosition.starting_date}</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<c:if test="${manager == true}">
+						<div class="update-button-div"><button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-update"><span class="glyphicon glyphicon-briefcase"></span> Update Job</button></div>
+					</c:if>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </div>
@@ -159,7 +166,7 @@ $('#tab-job-info').click(function() {
 	$('#tab-personal-info').parent().removeClass('active');
 });
 </script>
-<c:if test="${manager == true}">
+<c:if test="${autUser.user_id == logedUser.user_id || manager == true}">
 	<script type="text/javascript">
 		$('.conv').click(function() {
 		

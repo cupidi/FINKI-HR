@@ -104,7 +104,7 @@ public class InfoController {
 		
 		JobPositions job = new JobPositions();
 		job.setPosition_name(position);
-		job.setSalary(Double.parseDouble(salary));
+		job.setSalary(Integer.parseInt(salary));
 		job.setUser_id(Integer.parseInt(id));
 		job.setStarting_date(new Date());
 		userService.addJob(job);
